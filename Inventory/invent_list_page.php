@@ -19,6 +19,7 @@ $items = $stmt->fetchAll();
 </head>
 <body class="bg-light">
     <div class="container mt-5">
+         <a href="add_inventory.php" class="btn btn-secondary">Add Item</a>
         <h2>Inventory List</h2>
 
         <table class="table table-bordered table-striped mt-4">
@@ -56,8 +57,6 @@ $items = $stmt->fetchAll();
 </tbody>
 
         </table>
-
-        <a href="add_inventory.php" class="btn btn-secondary">Add Item</a>
     </div>
 </body>
 </html>
