@@ -106,7 +106,7 @@ $inventoryItems = $inventoryItemsStmt->fetchAll(PDO::FETCH_COLUMN);
             </div>
             <div class="mb-3">
                 <label for="price" class="form-label">Price per Unit (GHS)</label>
-                <input type="number" class="form-control" step="0.01" id="price" name="price" required>
+                <input type="number" class="form-control" step="0.5" id="price" name="price" readonly>
             </div>
             <div class="mb-3">
                 <label for="payment_method" class="form-label">Payment Method</label>
