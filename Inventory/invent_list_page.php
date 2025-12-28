@@ -1,7 +1,24 @@
 <?php
 require '../dbconfig.php';
 
-$stmt = $conn->query("SELECT * FROM inventory ORDER BY item ASC");
+// $stmt = $conn->query("SELECT * FROM inventory ORDER BY item ASC");
+// $items = $stmt->fetchAll();
+$search = $_GET['search'] ?? '';
+
+if ($search) {
+    $stmt = $conn->prepare("
+        SELECT * FROM inventory 
+        WHERE item LIKE ? 
+           OR item_code LIKE ? 
+           OR category LIKE ?
+        ORDER BY item ASC
+    ");
+    $likeSearch = "%$search%";
+    $stmt->execute([$likeSearch, $likeSearch, $likeSearch]);
+} else {
+    $stmt = $conn->query("SELECT * FROM inventory ORDER BY item ASC");
+}
+
 $items = $stmt->fetchAll();
 ?>
 
@@ -19,8 +36,27 @@ $items = $stmt->fetchAll();
 </head>
 <body class="bg-light">
     <div class="container mt-5">
-         <a href="add_inventory.php" class="btn btn-secondary">Add Item</a>
         <h2>Inventory List</h2>
+        <form method="get" class="row mb-3">
+    <div class="col-md-6">
+        <input 
+            type="text" 
+            name="search" 
+            class="form-control" 
+            placeholder="Search by item name, code, or category..."
+            value="<?= htmlspecialchars($search) ?>"
+        >
+    </div>
+    <div class="col-md-2">
+        <button type="submit" class="btn btn-primary w-100">Search</button>
+    </div>
+    <div class="col-md-2">
+        <a href="inventory_list.php" class="btn btn-secondary w-100">Reset</a>
+    </div>
+    <div class="col-md-2">
+        <a href="add_inventory.php" class="btn btn-secondary">Add Item</a>
+    </div>
+</form>
 
         <table class="table table-bordered table-striped mt-4">
             <!-- Add "Action" column to the table header -->
