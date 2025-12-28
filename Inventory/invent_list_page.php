@@ -51,7 +51,7 @@ $items = $stmt->fetchAll();
         <button type="submit" class="btn btn-primary w-100">Search</button>
     </div>
     <div class="col-md-2">
-        <a href="inventory_list.php" class="btn btn-secondary w-100">Reset</a>
+        <a href="invent_list_page.php" class="btn btn-secondary w-100">Reset</a>
     </div>
     <div class="col-md-2">
         <a href="add_inventory.php" class="btn btn-secondary">Add Item</a>

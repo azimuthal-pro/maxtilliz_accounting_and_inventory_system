@@ -191,6 +191,27 @@ $inventoryItems = $inventoryItemsStmt->fetchAll(PDO::FETCH_COLUMN);
         </ul>
 
     </div>
+
+      <script>
+document.getElementById('item').addEventListener('change', function () {
+    const itemName = this.value;
+    const priceInput = document.getElementById('price');
+
+    if (!itemName) {
+        priceInput.value = '';
+        return;
+    }
+
+    fetch('get_item_price.php?item=' + encodeURIComponent(itemName))
+        .then(response => response.json())
+        .then(data => {
+            priceInput.value = data.price;
+        })
+        .catch(() => {
+            priceInput.value = '';
+        });
+});
+</script>
 </body>
 
 </html>
