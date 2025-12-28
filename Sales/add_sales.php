@@ -5,7 +5,7 @@ $message = '';
 
 // Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $date_time = $_POST['sale_date'];
+    $date_time = date('Y-m-d H:i:s');
     $item = $_POST['item'];
     $quantity = (int) $_POST['qty'];
     $price = (float) $_POST['price'];
