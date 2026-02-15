@@ -94,8 +94,8 @@ CREATE TABLE `inventory` (
 -- Dumping data for table `inventory`
 --
 
-INSERT INTO `inventory` (`id`, `item`, `item_code`, `category`, `unit_price`, `quantity_in_stock`, `min_stock_level`, `created_at`) VALUES
-(1, 'Dynwell Syrup', '012215', 'Syrups', 20.00, 8, 2, '2025-06-02 16:48:59');
+-- INSERT INTO `inventory` (`id`, `item`, `item_code`, `category`, `unit_price`, `quantity_in_stock`, `min_stock_level`, `created_at`) VALUES
+-- (1, 'Dynwell Syrup', '012215', 'Syrups', 20.00, 8, 2, '2025-06-02 16:48:59');
 
 -- --------------------------------------------------------
 
