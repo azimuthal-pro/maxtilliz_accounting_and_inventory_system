@@ -1,8 +1,9 @@
 FROM php:8.2-apache
 
-# Enable Apache modules
-RUN a2enmod rewrite
-RUN a2dismod mpm_event mpm_worker || true && a2enmod mpm_prefork
+# Fix MPM conflict - must disable event before enabling prefork
+RUN a2dismod mpm_event mpm_worker 2>/dev/null || true && \
+    a2enmod mpm_prefork && \
+    a2enmod rewrite
 
 # Install PHP extensions
 RUN docker-php-ext-install pdo pdo_mysql mysqli
@@ -17,6 +18,6 @@ RUN chown -R www-data:www-data /var/www/html
 RUN sed -i 's/Listen 80/Listen ${PORT}/g' /etc/apache2/ports.conf && \
     sed -i 's/<VirtualHost \*:80>/<VirtualHost *:${PORT}>/g' /etc/apache2/sites-enabled/000-default.conf
 
-EXPOSE ${PORT}
+EXPOSE 80
 
 CMD ["apache2-foreground"]
