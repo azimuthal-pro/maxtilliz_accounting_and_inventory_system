@@ -1,6 +1,6 @@
 FROM php:8.2-fpm-bullseye
 
-# Install nginx and supervisor (supervisor manages both nginx + php-fpm)
+# Install nginx and supervisor
 RUN apt-get update && \
     apt-get install -y nginx supervisor && \
     rm -rf /var/lib/apt/lists/*
@@ -10,15 +10,15 @@ RUN docker-php-ext-install pdo pdo_mysql mysqli
 
 # Copy project files
 COPY . /var/www/html/
+RUN chown -R www-data:www-data /var/www/html && chmod -R 755 /var/www/html
 
-# Set permissions
-RUN chown -R www-data:www-data /var/www/html && \
-    chmod -R 755 /var/www/html
+# Remove default nginx config
+RUN rm -f /etc/nginx/sites-enabled/default /etc/nginx/sites-available/default
 
-# Write nginx config
-RUN cat > /etc/nginx/sites-available/default << 'NGINXEOF'
+# Write nginx config - listens on 8080 (Railway default fallback)
+RUN cat > /etc/nginx/conf.d/app.conf << 'NGINXEOF'
 server {
-    listen __PORT__;
+    listen 8080 default_server;
     server_name _;
     root /var/www/html;
     index index.php index.html;
@@ -31,14 +31,24 @@ server {
         include fastcgi_params;
         fastcgi_pass 127.0.0.1:9000;
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_param PATH_INFO $fastcgi_path_info;
+    }
+
+    location ~ /\.ht {
+        deny all;
     }
 }
 NGINXEOF
 
-# Write supervisor config to manage both processes
+# Remove the events/http wrapper issue - fix nginx.conf to not conflict
+RUN sed -i 's/include \/etc\/nginx\/sites-enabled\/\*;//' /etc/nginx/nginx.conf && \
+    echo "include /etc/nginx/conf.d/*.conf;" >> /etc/nginx/nginx.conf || true
+
+# Supervisor config
 RUN cat > /etc/supervisor/conf.d/app.conf << 'SUPEOF'
 [supervisord]
 nodaemon=true
+user=root
 logfile=/dev/null
 logfile_maxbytes=0
 
@@ -61,9 +71,6 @@ stderr_logfile=/dev/stderr
 stderr_logfile_maxbytes=0
 SUPEOF
 
-# Startup script: inject PORT then launch supervisor
-RUN printf '#!/bin/sh\nPORT=${PORT:-80}\nsed -i "s/__PORT__/$PORT/" /etc/nginx/sites-available/default\nexec /usr/bin/supervisord -c /etc/supervisor/supervisord.conf\n' > /start.sh && chmod +x /start.sh
+EXPOSE 8080
 
-EXPOSE 80
-
-CMD ["/start.sh"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
