@@ -1,8 +1,10 @@
 FROM php:8.2-apache
 
-# Fix MPM conflict - must disable event before enabling prefork
-RUN a2dismod mpm_event mpm_worker 2>/dev/null || true && \
-    a2enmod mpm_prefork && \
+# Remove ALL mpm symlinks and only enable prefork
+RUN rm -f /etc/apache2/mods-enabled/mpm_*.load \
+          /etc/apache2/mods-enabled/mpm_*.conf && \
+    ln -s /etc/apache2/mods-available/mpm_prefork.load /etc/apache2/mods-enabled/mpm_prefork.load && \
+    ln -s /etc/apache2/mods-available/mpm_prefork.conf /etc/apache2/mods-enabled/mpm_prefork.conf && \
     a2enmod rewrite
 
 # Install PHP extensions
