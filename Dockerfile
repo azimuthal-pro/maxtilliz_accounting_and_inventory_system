@@ -79,6 +79,6 @@ stderr_logfile=/dev/stderr
 stderr_logfile_maxbytes=0
 SUPEOF
 
-EXPOSE 8080
+EXPOSE 9000
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
