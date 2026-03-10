@@ -5,7 +5,7 @@
 $branches = [
     'Agbajeena' => [
         'host' => getenv('DB_Agbajeena_HOST'),
-        'dbname' => getenv('DB_Agbjeena_NAME'), // note: typo in original config
+        'dbname' => getenv('DB_Agbajeena_NAME'), // note: typo in original config
         'user' => getenv('DB_Agbajeena_USER'),
         'pass' => getenv('DB_Agbajeena_PASS'),
     ],
