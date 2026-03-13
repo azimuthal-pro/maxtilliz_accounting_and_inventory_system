@@ -47,6 +47,7 @@ foreach ($salesToday as $sale) {
 <div class="container mt-5">
 
     <img src="../Dashboard/Maxtilliz_logo.jpg" class="d-block mx-auto mb-3" width="150">
+     <a href="../Dashboard/page.php" class="btn btn-secondary mb-3">← Back to Dashboard</a>
     <h2 class="mb-4 text-center">Sales Entry</h2>
 
     <!-- SALES FORM -->

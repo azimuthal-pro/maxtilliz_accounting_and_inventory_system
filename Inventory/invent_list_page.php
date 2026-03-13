@@ -35,6 +35,7 @@ $items = $stmt->fetchAll();
 </head>
 <body class="bg-light">
     <div class="container mt-5">
+         <a href="../Dashboard/page.php" class="btn btn-secondary mb-3">← Back to Dashboard</a>
         <h2>Inventory List</h2>
         <form method="get" class="row mb-3">
     <div class="col-md-6">
