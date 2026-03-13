@@ -77,7 +77,7 @@ $grandTotal = 0;
             </div>
         </form>
 
-        <a href="index.php" class="btn btn-secondary mb-3">Back to Dashboard</a>
+        <a href="../index.php" class="btn btn-secondary mb-3">Back to Dashboard</a>
 
         <table class="table table-bordered table-striped">
             <thead class="table-dark">
