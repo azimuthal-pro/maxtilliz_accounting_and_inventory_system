@@ -3,7 +3,7 @@
 
 $cfg = [
     'host' => getenv('DB_Agbajeena_HOST'),
-    'dbname' => getenv('DB_Agbjeena_NAME'),
+    'dbname' => getenv('DB_Agbajeena_NAME'),
     'user' => getenv('DB_Agbajeena_USER'),
     'pass' => getenv('DB_Agbajeena_PASS'),
 ];
