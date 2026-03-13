@@ -62,7 +62,7 @@ $grandTotal = 0;
             </div>
             <div class="col-md-3">
                 <label for="to_date" class="form-label">To</label>
-                <input type="date" class="form-control" id="to_date" name="to_date" value="<?= htmlspecialchars($toDate) ?>">
+                <input type="date" class="form-control" id="to_date" name="to_date" value="<?= htmlspecialchars($toDate)?>">
             </div>
             <div class="col-md-3">
                 <label for="payment_method" class="form-label">Payment Method</label>
@@ -135,7 +135,7 @@ $grandTotal = 0;
                 <!-- Payment Method Breakdown -->
                 <tr class="table-info fw-bold">
                     <td colspan="6" class="text-end">Total (Cash)</td>
-                    <td><?= number_format($paymentTotals['Cash'], 2) ?></td>
+                    <td><?=number_format($paymentTotals['Cash'], 2)?></td>
                 </tr>
                 <tr class="table-info fw-bold">
                     <td colspan="6" class="text-end">Total (Mobile Money)</td>
