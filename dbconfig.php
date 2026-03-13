@@ -6,6 +6,11 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+// Prevent browser from caching any protected page
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+
 $allowedBranches = ['Agbajeena', 'Olebu'];
 
 // Branch can be set during login via POST, or persisted in session.
@@ -45,7 +50,7 @@ if (!$isPublic) {
 $branchConfigs = [
     'Agbajeena' => [
         'host' => getenv('DB_Agbajeena_HOST') ?: 'localhost',
-        'dbname' => getenv('DB_Agbajeena_NAME') ?: 'maxtilliz_agbajeena',
+        'dbname' => getenv('DB_Agbjeena_NAME') ?: 'maxtilliz_agbajeena',
         'user' => getenv('DB_Agbajeena_USER') ?: 'root',
         'pass' => getenv('DB_Agbajeena_PASS') ?: '',
     ],
