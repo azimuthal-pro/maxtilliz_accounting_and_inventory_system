@@ -50,7 +50,7 @@ if (!$isPublic) {
 $branchConfigs = [
     'Agbajeena' => [
         'host' => getenv('DB_Agbajeena_HOST') ?: 'localhost',
-        'dbname' => getenv('DB_Agbjeena_NAME') ?: 'maxtilliz_agbajeena',
+        'dbname' => getenv('DB_Agbajeena_NAME') ?: 'maxtilliz_agbajeena',
         'user' => getenv('DB_Agbajeena_USER') ?: 'root',
         'pass' => getenv('DB_Agbajeena_PASS') ?: '',
     ],
