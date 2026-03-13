@@ -116,7 +116,7 @@ $lowStockCount = $lowStockStmt->fetchColumn() ?? 0;
       <a href="../Purchase/purchase_history_report.php"><i class="bi bi-graph-down me-2"></i>Purchase Reports</a>
     </div>
 
-    <a class="dropdown-item text" href="../Access_control/admin_login.php" target="_blank"><i class="bi bi-box-arrow-right me-2"></i>Logout</a>
+    <a class="dropdown-item text" href="../Access_control/admin_login.php" target="_self"><i class="bi bi-box-arrow-right me-2"></i>Logout</a>
   </div>
 
   <!-- Main Content -->
