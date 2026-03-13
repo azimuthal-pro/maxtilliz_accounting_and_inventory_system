@@ -21,16 +21,16 @@ if (!$item) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST['item'];
     $code = $_POST['item_code'];
-    $category = $_POST['category'];
+    //$category = $_POST['category'];
     $price = (float) $_POST['unit_price'];
     $stock = (int) $_POST['quantity_in_stock'];
     $min = (int) $_POST['min_stock_level'];
 
     $updateStmt = $conn->prepare("UPDATE inventory 
-        SET item = ?, item_code = ?, category = ?, unit_price = ?, quantity_in_stock = ?, min_stock_level = ? 
+        SET item = ?, item_code = ?, unit_price = ?, quantity_in_stock = ?, min_stock_level = ? 
         WHERE id = ?");
     
-    if ($updateStmt->execute([$name, $code, $category, $price, $stock, $min, $id])) {
+    if ($updateStmt->execute([$name, $code, $price, $stock, $min, $id])) {
         $message = "Item updated successfully!";
         // Refresh item data
         $stmt->execute([$id]);
@@ -65,10 +65,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <label class="form-label">Item Code</label>
             <input type="text" name="item_code" class="form-control" value="<?= htmlspecialchars($item['item_code']) ?>" required>
         </div>
-        <div class="mb-3">
+        <!-- <div class="mb-3">
             <label class="form-label">Category</label>
             <input type="text" name="category" class="form-control" value="<?= htmlspecialchars($item['category']) ?>">
-        </div>
+        </div> -->
         <div class="mb-3">
             <label class="form-label">Unit Price (GHS)</label>
             <input type="number" name="unit_price" class="form-control" step="0.01" value="<?= $item['unit_price'] ?>" required>

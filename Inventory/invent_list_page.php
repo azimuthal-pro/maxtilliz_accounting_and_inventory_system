@@ -10,11 +10,10 @@ if ($search) {
         SELECT * FROM inventory 
         WHERE item LIKE ? 
            OR item_code LIKE ? 
-           OR category LIKE ?
         ORDER BY item ASC
     ");
     $likeSearch = "%$search%";
-    $stmt->execute([$likeSearch, $likeSearch, $likeSearch]);
+    $stmt->execute([$likeSearch, $likeSearch]);
 } else {
     $stmt = $conn->query("SELECT * FROM inventory ORDER BY item ASC");
 }
@@ -64,11 +63,10 @@ $items = $stmt->fetchAll();
     <tr>
         <th>Item Name</th>
         <th>Item Code</th>
-        <th>Category</th>
         <th>Unit Price (GHS)</th>
         <th>In Stock</th>
         <th>Min Level</th>
-        <th>Actions</th> <!-- New -->
+        <th>Actions</th>
     </tr>
 </thead>
 <tbody>
@@ -77,7 +75,6 @@ $items = $stmt->fetchAll();
             <tr class="<?= $item['quantity_in_stock'] < $item['min_stock_level'] ? 'low-stock' : '' ?>">
                 <td><?= htmlspecialchars($item['item']) ?></td>
                 <td><?= htmlspecialchars($item['item_code']) ?></td>
-                <td><?= htmlspecialchars($item['category']) ?></td>
                 <td><?= number_format($item['unit_price'], 2) ?></td>
                 <td><?= $item['quantity_in_stock'] ?></td>
                 <td><?= $item['min_stock_level'] ?></td>

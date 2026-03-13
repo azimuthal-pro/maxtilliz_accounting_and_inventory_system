@@ -32,7 +32,7 @@ CREATE TABLE `inventory` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `item` varchar(100) NOT NULL,
   `item_code` varchar(50) NOT NULL,
-  `category` varchar(50) DEFAULT NULL,
+  -- `category` varchar(50) DEFAULT NULL,
   `unit_price` decimal(10,2) NOT NULL,
   `quantity_in_stock` int(11) DEFAULT 0,
   `min_stock_level` int(11) DEFAULT 0,

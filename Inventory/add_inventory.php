@@ -6,15 +6,14 @@ $message = '';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $item_name = $_POST['item'];
     $item_code = $_POST['item_code'];
-    $category = $_POST['category'];
     $unit_price = (float) $_POST['unit_price'];
     $quantity = (int) $_POST['quantity'];
     $min_stock = (int) $_POST['min_stock'];
 
-    $stmt = $conn->prepare("INSERT INTO inventory (item, item_code, category, unit_price, quantity_in_stock, min_stock_level) 
-                            VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO inventory (item, item_code, unit_price, quantity_in_stock, min_stock_level) 
+                            VALUES (?, ?, ?, ?, ?)");
 
-    if ($stmt->execute([$item_name, $item_code, $category, $unit_price, $quantity, $min_stock])) {
+    if ($stmt->execute([$item_name, $item_code, $unit_price, $quantity, $min_stock])) {
         $message = "Item added successfully!";
         header('Location:invent_list_page.php');
     } else {
@@ -49,10 +48,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="text" name="item_code" class="form-control" required>
             </div>
 
-            <div class="mb-3">
+            <!-- <div class="mb-3">
                 <label class="form-label">Category</label>
                 <input type="text" name="category" class="form-control">
-            </div>
+            </div> -->
 
             <div class="mb-3">
                 <label class="form-label">Unit Price (GHS)</label>
