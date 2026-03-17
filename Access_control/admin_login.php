@@ -1,6 +1,16 @@
 <?php
 session_start();
 
+// No caching
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Pragma: no-cache");
+
+// If already logged in, redirect to dashboard instead of showing login
+if (isset($_SESSION['admin']) || isset($_SESSION['employee'])) {
+    header("Location: ../Dashboard/page.php");
+    exit();
+}
+
 $error = '';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -54,8 +64,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <label class="form-label">Branch / Location</label>
                 <select name="branch" class="form-select" required>
                     <option value="">-- Select branch --</option>
-                    <option value="Agbajeena">Agbajeena</option>
-                    <option value="Olebu">Olebu</option>
+                    <option value="agbajeena">Agbajeena Branch</option>
+                    <option value="olebu">Olebu Branch</option>
                 </select>
             </div>
 
