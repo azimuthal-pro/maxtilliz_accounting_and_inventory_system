@@ -64,8 +64,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <label class="form-label">Branch / Location</label>
                 <select name="branch" class="form-select" required>
                     <option value="">-- Select branch --</option>
-                    <option value="agbajeena">Agbajeena Branch</option>
-                    <option value="olebu">Olebu Branch</option>
+                    <option value="Agbajeena">Agbajeena Branch</option>
+                    <option value="Olebu">Olebu Branch</option>
                 </select>
             </div>
 
