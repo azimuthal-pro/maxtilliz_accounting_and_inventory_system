@@ -30,9 +30,9 @@ try {
     echo "<p>✅ All old tables cleared.</p>";
 
     // Read and run the new SQL file
-    $sql = file_get_contents(__DIR__ . '/olebu_data.sql');
+    $sql = file_get_contents(__DIR__ . '/Olebu.sql');
     if (!$sql) {
-        die("<p>❌ Could not read olebu_data.sql</p>");
+        die("<p>❌ Could not read Olebu.sql</p>");
     }
 
     $statements = array_filter(array_map('trim', explode(';', $sql)));
@@ -70,5 +70,5 @@ try {
     echo "<p>❌ Connection Error: " . htmlspecialchars($e->getMessage()) . "</p>";
 }
 
-echo "<hr><p><strong>Done! Delete import_olebu.php and olebu_data.sql now.</strong></p>";
+echo "<hr><p><strong>Done! Delete import_olebu.php and Olebu.sql now.</strong></p>";
 ?>
