@@ -9,7 +9,7 @@ $purchaseStmt = $conn->query("SELECT SUM(total_cost) AS total_purchases FROM pur
 $totalPurchases = $purchaseStmt->fetchColumn() ?? 0;
 
 
-$lowStockStmt = $conn->query("SELECT COUNT(*) FROM inventory WHERE quantity_in_stock <= min_stock_level");
+$lowStockStmt = $conn->query("SELECT COUNT(*) FROM drugs_tb WHERE quantity_in_stock <= min_stock_level");
 $lowStockCount = $lowStockStmt->fetchColumn() ?? 0;
 ?>
 
@@ -89,13 +89,13 @@ $lowStockCount = $lowStockStmt->fetchColumn() ?? 0;
       <a href="../Sales/view_sales.php"><i class="bi bi-list-ul me-2"></i>View Sales</a>
     </div>
 
-    <!-- Inventory Dropdown -->
-    <button class="btn-toggle" data-bs-toggle="collapse" data-bs-target="#inventoryMenu">
-      <i class="bi bi-box-seam me-2"></i>Inventory
+    <!-- drugs_tb Dropdown -->
+    <button class="btn-toggle" data-bs-toggle="collapse" data-bs-target="#drugsMenu">
+      <i class="bi bi-box-seam me-2"></i>drugs_tb
     </button>
-    <div class="collapse" id="inventoryMenu">
-      <a href="../Inventory/add_inventory.php"><i class="bi bi-plus-circle me-2"></i>Add Inventory</a>
-      <a href="../Inventory/invent_list_page.php"><i class="bi bi-list-ul me-2"></i>View Inventory</a>
+    <div class="collapse" id="drugsMenu">
+      <a href="../drugs_tb/add_drugs.php"><i class="bi bi-plus-circle me-2"></i>Add drugs_tb</a>
+      <a href="../drugs_tb/invent_list_page.php"><i class="bi bi-list-ul me-2"></i>View drugs_tb</a>
     </div>
 
     <!-- Purchase Dropdown -->

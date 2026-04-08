@@ -21,8 +21,8 @@ foreach ($salesToday as $sale) {
     $totalAmount += $sale['total'];
 }
 
-$itemsStmt = $conn->query("SELECT item FROM inventory ORDER BY item ASC");
-$inventoryItems = $itemsStmt->fetchAll(PDO::FETCH_COLUMN);
+$itemsStmt = $conn->query("SELECT item FROM drugs_tb ORDER BY item ASC");
+$drugsItems = $itemsStmt->fetchAll(PDO::FETCH_COLUMN);
 
 // Load cosmetics items only for Olebu branch
 $cosmeticsItems = [];
@@ -68,9 +68,9 @@ foreach ($salesToday as $sale) {
             <div class="item-row d-flex gap-2 mb-2">
                 <select name="item[]" class="form-select item-select" required>
                     <option value="">-- Select Item --</option>
-                    <?php if ($inventoryItems): ?>
+                    <?php if ($drugsItems): ?>
                     <optgroup label="--- DRUGS / PHARMACEUTICALS ---">
-                    <?php foreach ($inventoryItems as $invItem): ?>
+                    <?php foreach ($drugsItems as $invItem): ?>
                         <option value="drug:<?= htmlspecialchars($invItem) ?>">
                             <?= htmlspecialchars($invItem) ?>
                         </option>

@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $quantity = (int) $_POST['quantity'];
     $min_stock = (int) $_POST['min_stock'];
 
-    $stmt = $conn->prepare("INSERT INTO inventory (item, item_code, unit_price, quantity_in_stock, min_stock_level) 
+    $stmt = $conn->prepare("INSERT INTO drugs_tb (item, item_code, unit_price, quantity_in_stock, min_stock_level) 
                             VALUES (?, ?, ?, ?, ?)");
 
     if ($stmt->execute([$item_name, $item_code, $unit_price, $quantity, $min_stock])) {
@@ -26,13 +26,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Add Inventory Item</title>
+    <title>Add drugs_tb Item</title>
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
     <div class="container mt-3">
         <a href="../Dashboard/page.php" class="btn btn-secondary mb-3">← Back to Dashboard</a>
-        <h2>Add Item To Inventory </h2>
+        <h2>Add Item To drugs_tb </h2>
 
         <?php if ($message): ?>
             <div class="alert alert-info mt-3"><?= $message ?></div>

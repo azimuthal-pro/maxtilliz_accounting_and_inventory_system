@@ -1,1 +1,1 @@
-# maxtilliz_accounting_and_inventory_system
+# maxtilliz_accounting_and_drugs_system

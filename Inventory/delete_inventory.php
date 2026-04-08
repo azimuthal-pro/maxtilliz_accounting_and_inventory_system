@@ -8,7 +8,7 @@ if (!$id) {
     exit;
 }
 
-$stmt = $conn->prepare("DELETE FROM inventory WHERE id = ?");
+$stmt = $conn->prepare("DELETE FROM drugs_tb WHERE id = ?");
 if ($stmt->execute([$id])) {
     header("Location: invent_list_page.php?message=Item+deleted+successfully");
     exit;

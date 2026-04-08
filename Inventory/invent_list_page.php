@@ -1,13 +1,13 @@
 <?php
 require '../dbconfig.php';
 
-// $stmt = $conn->query("SELECT * FROM inventory ORDER BY item ASC");
+// $stmt = $conn->query("SELECT * FROM drugs_tb ORDER BY item ASC");
 // $items = $stmt->fetchAll();
 $search = $_GET['search'] ?? '';
 
 if ($search) {
     $stmt = $conn->prepare("
-        SELECT * FROM inventory 
+        SELECT * FROM drugs_tb
         WHERE item LIKE ? 
            OR item_code LIKE ? 
         ORDER BY item ASC
@@ -15,7 +15,7 @@ if ($search) {
     $likeSearch = "%$search%";
     $stmt->execute([$likeSearch, $likeSearch]);
 } else {
-    $stmt = $conn->query("SELECT * FROM inventory ORDER BY item ASC");
+    $stmt = $conn->query("SELECT * FROM drugs_tb ORDER BY item ASC");
 }
 
 $items = $stmt->fetchAll();
@@ -25,7 +25,7 @@ $items = $stmt->fetchAll();
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Inventory List</title>
+    <title>drugs_tb List</title>
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .low-stock {
@@ -36,7 +36,7 @@ $items = $stmt->fetchAll();
 <body class="bg-light">
     <div class="container mt-5">
          <a href="../Dashboard/page.php" class="btn btn-secondary mb-3">← Back to Dashboard</a>
-        <h2>Inventory List</h2>
+        <h2>drugs_tb List</h2>
         <form method="get" class="row mb-3">
     <div class="col-md-6">
         <input 
@@ -54,7 +54,7 @@ $items = $stmt->fetchAll();
         <a href="invent_list_page.php" class="btn btn-secondary w-100">Reset</a>
     </div>
     <div class="col-md-2">
-        <a href="add_inventory.php" class="btn btn-secondary">Add Item</a>
+        <a href="add_drugs.php" class="btn btn-secondary">Add Item</a>
     </div>
 </form>
 
@@ -80,13 +80,13 @@ $items = $stmt->fetchAll();
                 <td><?= $item['quantity_in_stock'] ?></td>
                 <td><?= $item['min_stock_level'] ?></td>
                 <td>
-                    <a href="edit_inventory.php?id=<?= $item['id'] ?>" class="btn btn-sm btn-primary">Edit</a>
-                    <a href="delete_inventory.php?id=<?= $item['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                    <a href="edit_drugs.php?id=<?= $item['id'] ?>" class="btn btn-sm btn-primary">Edit</a>
+                    <a href="delete_drugs.php?id=<?= $item['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
                 </td>
             </tr>
         <?php endforeach; ?>
     <?php else: ?>
-        <tr><td colspan="7" class="text-center">No inventory items found.</td></tr>
+        <tr><td colspan="7" class="text-center">No drugs_tb items found.</td></tr>
     <?php endif; ?>
 </tbody>
 

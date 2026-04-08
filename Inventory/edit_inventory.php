@@ -9,7 +9,7 @@ if (!$id) {
 }
 
 // Fetch item details
-$stmt = $conn->prepare("SELECT * FROM inventory WHERE id = ?");
+$stmt = $conn->prepare("SELECT * FROM drugs_tb WHERE id = ?");
 $stmt->execute([$id]);
 $item = $stmt->fetch();
 
@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stock = (int) $_POST['quantity_in_stock'];
     $min = (int) $_POST['min_stock_level'];
 
-    $updateStmt = $conn->prepare("UPDATE inventory 
+    $updateStmt = $conn->prepare("UPDATE drugs_tb 
         SET item = ?, item_code = ?, unit_price = ?, quantity_in_stock = ?, min_stock_level = ? 
         WHERE id = ?");
     
@@ -45,12 +45,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Edit Inventory Item</title>
+    <title>Edit drugs_tb Item</title>
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
 <div class="container mt-5">
-    <h2 class="mb-4">Edit Inventory Item</h2>
+    <h2 class="mb-4">Edit drugs_tb Item</h2>
 
     <?php if ($message): ?>
         <div class="alert alert-info"><?= $message ?></div>

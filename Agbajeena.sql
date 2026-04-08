@@ -28,7 +28,7 @@ CREATE TABLE `expenses` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-CREATE TABLE `inventory` (
+CREATE TABLE `drugs_tb` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `item` varchar(100) NOT NULL,
   `item_code` varchar(50) NOT NULL,
