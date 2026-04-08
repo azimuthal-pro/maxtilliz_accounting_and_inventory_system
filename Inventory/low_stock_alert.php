@@ -1,7 +1,7 @@
 <?php
 require '../dbconfig.php';
 
-$stmt = $conn->query("SELECT * FROM drugs_tb WHERE quantity_in_stock <= min_stock_level");
+$stmt = $conn->query("SELECT * FROM inventory WHERE quantity_in_stock <= min_stock_level");
 $lowStockItems = $stmt->fetchAll();
 ?>
 

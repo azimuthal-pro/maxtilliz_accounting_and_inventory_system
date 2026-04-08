@@ -9,7 +9,7 @@ if (strpos($raw, 'cosmetic:') === 0) {
     $stmt = $conn->prepare("SELECT unit_price FROM cosmetics WHERE item = ?");
 } else {
     $item = strpos($raw, 'drug:') === 0 ? substr($raw, strlen('drug:')) : $raw;
-    $stmt = $conn->prepare("SELECT unit_price FROM drugs_tb WHERE item = ?");
+    $stmt = $conn->prepare("SELECT unit_price FROM inventory WHERE item = ?");
 }
 
 $stmt->execute([$item]);

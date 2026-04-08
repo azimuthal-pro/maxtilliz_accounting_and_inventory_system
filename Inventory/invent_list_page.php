@@ -1,13 +1,13 @@
 <?php
 require '../dbconfig.php';
 
-// $stmt = $conn->query("SELECT * FROM drugs_tb ORDER BY item ASC");
+// $stmt = $conn->query("SELECT * FROM inventory ORDER BY item ASC");
 // $items = $stmt->fetchAll();
 $search = $_GET['search'] ?? '';
 
 if ($search) {
     $stmt = $conn->prepare("
-        SELECT * FROM drugs_tb
+        SELECT * FROM inventory
         WHERE item LIKE ? 
            OR item_code LIKE ? 
         ORDER BY item ASC
@@ -15,7 +15,7 @@ if ($search) {
     $likeSearch = "%$search%";
     $stmt->execute([$likeSearch, $likeSearch]);
 } else {
-    $stmt = $conn->query("SELECT * FROM drugs_tb ORDER BY item ASC");
+    $stmt = $conn->query("SELECT * FROM inventory ORDER BY item ASC");
 }
 
 $items = $stmt->fetchAll();
@@ -25,7 +25,7 @@ $items = $stmt->fetchAll();
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>drugs_tb List</title>
+    <title>inventory List</title>
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .low-stock {
@@ -36,7 +36,7 @@ $items = $stmt->fetchAll();
 <body class="bg-light">
     <div class="container mt-5">
          <a href="../Dashboard/page.php" class="btn btn-secondary mb-3">← Back to Dashboard</a>
-        <h2>drugs_tb List</h2>
+        <h2>inventory List</h2>
         <form method="get" class="row mb-3">
     <div class="col-md-6">
         <input 
@@ -86,7 +86,7 @@ $items = $stmt->fetchAll();
             </tr>
         <?php endforeach; ?>
     <?php else: ?>
-        <tr><td colspan="7" class="text-center">No drugs_tb items found.</td></tr>
+        <tr><td colspan="7" class="text-center">No inventory items found.</td></tr>
     <?php endif; ?>
 </tbody>
 

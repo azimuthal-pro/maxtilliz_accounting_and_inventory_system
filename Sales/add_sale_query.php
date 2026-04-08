@@ -25,20 +25,20 @@ if (!empty($items)) {
                 $table = 'cosmetics';
             } else {
                 $item = strpos($rawItem, 'drug:') === 0 ? substr($rawItem, strlen('drug:')) : $rawItem;
-                $table = 'drugs_tb';
+                $table = 'inventory';
             }
 
             // Check stock in correct table
             $invStmt = $conn->prepare("SELECT quantity_in_stock FROM `$table` WHERE item = ?");
             $invStmt->execute([$item]);
-            $drugs_tb = $invStmt->fetch();
+            $inventory = $invStmt->fetch();
 
-            if (!$drugs_tb) {
+            if (!$inventory) {
                 $status = 'error';
                 throw new Exception("Item '$item' not found.");
             }
 
-            if ($qty > $drugs_tb['quantity_in_stock']) {
+            if ($qty > $inventory['quantity_in_stock']) {
                 $status = 'warning';
                 throw new Exception("Not enough stock for '$item'.");
             }

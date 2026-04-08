@@ -21,7 +21,7 @@ foreach ($salesToday as $sale) {
     $totalAmount += $sale['total'];
 }
 
-$itemsStmt = $conn->query("SELECT item FROM drugs_tb ORDER BY item ASC");
+$itemsStmt = $conn->query("SELECT item FROM inventory ORDER BY item ASC");
 $drugsItems = $itemsStmt->fetchAll(PDO::FETCH_COLUMN);
 
 // Load cosmetics items only for Olebu branch

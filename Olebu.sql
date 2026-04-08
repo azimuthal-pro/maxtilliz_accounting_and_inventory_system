@@ -76,10 +76,10 @@ CREATE TABLE `expenses` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `drugs_tb`
+-- Table structure for table `inventory`
 --
 
-CREATE TABLE `drugs_tb` (
+CREATE TABLE `inventory` (
   `id` int NOT NULL,
   `item` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   `item_code` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
@@ -91,10 +91,10 @@ CREATE TABLE `drugs_tb` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `drugs_tb`
+-- Dumping data for table `inventory`
 --
 
-INSERT INTO `drugs_tb` (`id`, `item`, `item_code`, `category`, `unit_price`, `quantity_in_stock`, `min_stock_level`, `created_at`) VALUES
+INSERT INTO `inventory` (`id`, `item`, `item_code`, `category`, `unit_price`, `quantity_in_stock`, `min_stock_level`, `created_at`) VALUES
 (1, 'Omama mixture', '001', 'mixture', 40.00, 0, 2, '2025-07-01 12:32:38'),
 (2, 'Gifas mixture', '002', 'mixture', 30.00, 4, 2, '2025-07-01 12:34:10'),
 (3, 'Zahara Mixture', '003', 'mixture', 30.00, 4, 2, '2025-07-01 12:36:02'),
@@ -17358,9 +17358,9 @@ ALTER TABLE `expenses`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `drugs_tb`
+-- Indexes for table `inventory`
 --
-ALTER TABLE `drugs_tb`
+ALTER TABLE `inventory`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `item_code` (`item_code`);
 
@@ -17406,9 +17406,9 @@ ALTER TABLE `expenses`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `drugs_tb`
+-- AUTO_INCREMENT for table `inventory`
 --
-ALTER TABLE `drugs_tb`
+ALTER TABLE `inventory`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=723;
 
 --

@@ -16,12 +16,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                   VALUES (?, ?, ?, ?, ?)");
         $insert->execute([$item, $supplier, $quantity, $cost, $date]);
 
-        // Update drugs_tb
-        $update = $conn->prepare("UPDATE drugs_tb SET quantity_in_stock = quantity_in_stock + ? WHERE item = ?");
+        // Update inventory
+        $update = $conn->prepare("UPDATE inventory SET quantity_in_stock = quantity_in_stock + ? WHERE item = ?");
         $update->execute([$quantity, $item]);
 
         $conn->commit();
-        //echo "Purchase recorded and drugs_tb updated.";
+        //echo "Purchase recorded and inventory updated.";
     } catch (Exception $e) {
         $conn->rollBack();
         echo "Failed: " . $e->getMessage();
@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <select name="item" id="item" class="form-select" required>
     <option value="">Select Item</option>
     <?php
-        $items = $conn->query("SELECT item FROM drugs_tb ORDER BY item ASC")->fetchAll();
+        $items = $conn->query("SELECT item FROM inventory ORDER BY item ASC")->fetchAll();
         foreach ($items as $inv) {
             echo "<option value=\"" . htmlspecialchars($inv['item']) . "\">" . htmlspecialchars($inv['item']) . "</option>";
         }
