@@ -22,7 +22,7 @@ if (!empty($items)) {
             // Detect if drug or cosmetic
             if (strpos($rawItem, 'cosmetic:') === 0) {
                 $item = substr($rawItem, strlen('cosmetic:'));
-                $table = 'cosmetics_tb';
+                $table = 'cosmetics';
             } else {
                 $item = strpos($rawItem, 'drug:') === 0 ? substr($rawItem, strlen('drug:')) : $rawItem;
                 $table = 'drugs_tb';

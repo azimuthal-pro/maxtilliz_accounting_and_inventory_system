@@ -6,7 +6,7 @@ $raw = $_GET['item'] ?? '';
 // Parse prefix: drug:ItemName or cosmetic:ItemName
 if (strpos($raw, 'cosmetic:') === 0) {
     $item = substr($raw, strlen('cosmetic:'));
-    $stmt = $conn->prepare("SELECT unit_price FROM cosmetics_tb WHERE item = ?");
+    $stmt = $conn->prepare("SELECT unit_price FROM cosmetics WHERE item = ?");
 } else {
     $item = strpos($raw, 'drug:') === 0 ? substr($raw, strlen('drug:')) : $raw;
     $stmt = $conn->prepare("SELECT unit_price FROM drugs_tb WHERE item = ?");
