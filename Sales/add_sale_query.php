@@ -1,7 +1,7 @@
 <?php
 require '../dbconfig.php';
 
-$date_time  = date('Y-m-d H:i:s'); // automatic timestamp
+$date_time  = date('Y-m-d H:i:s');
 $items      = $_POST['item'] ?? [];
 $quantities = $_POST['qty'] ?? [];
 $prices     = $_POST['price'] ?? [];
@@ -14,22 +14,28 @@ if (!empty($items)) {
     $conn->beginTransaction();
 
     try {
-        foreach ($items as $i => $item) {
-
+        foreach ($items as $i => $rawItem) {
             $qty   = (int) $quantities[$i];
             $price = (float) $prices[$i];
             $total = $qty * $price;
 
-            // Check stock
-            $invStmt = $conn->prepare(
-                "SELECT quantity_in_stock FROM inventory WHERE item = ?"
-            );
+            // Detect if drug or cosmetic
+            if (strpos($rawItem, 'cosmetic:') === 0) {
+                $item = substr($rawItem, strlen('cosmetic:'));
+                $table = 'cosmetics';
+            } else {
+                $item = strpos($rawItem, 'drug:') === 0 ? substr($rawItem, strlen('drug:')) : $rawItem;
+                $table = 'inventory';
+            }
+
+            // Check stock in correct table
+            $invStmt = $conn->prepare("SELECT quantity_in_stock FROM `$table` WHERE item = ?");
             $invStmt->execute([$item]);
             $inventory = $invStmt->fetch();
 
             if (!$inventory) {
                 $status = 'error';
-                throw new Exception("Item '$item' not found in inventory.");
+                throw new Exception("Item '$item' not found.");
             }
 
             if ($qty > $inventory['quantity_in_stock']) {
@@ -37,27 +43,15 @@ if (!empty($items)) {
                 throw new Exception("Not enough stock for '$item'.");
             }
 
-            // Insert sale
+            // Insert sale (always into sales table)
             $saleStmt = $conn->prepare("
-                INSERT INTO sales 
-                (sale_date, item, qty, price, total, payment_method)
+                INSERT INTO sales (sale_date, item, qty, price, total, payment_method)
                 VALUES (?, ?, ?, ?, ?, ?)
             ");
-            $saleStmt->execute([
-                $date_time,
-                $item,
-                $qty,
-                $price,
-                $total,
-                $payment
-            ]);
+            $saleStmt->execute([$date_time, $item, $qty, $price, $total, $payment]);
 
-            // Update inventory
-            $updateInv = $conn->prepare("
-                UPDATE inventory
-                SET quantity_in_stock = quantity_in_stock - ?
-                WHERE item = ?
-            ");
+            // Deduct from correct table
+            $updateInv = $conn->prepare("UPDATE `$table` SET quantity_in_stock = quantity_in_stock - ? WHERE item = ?");
             $updateInv->execute([$qty, $item]);
         }
 

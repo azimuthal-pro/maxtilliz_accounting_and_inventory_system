@@ -24,6 +24,17 @@ foreach ($salesToday as $sale) {
 $itemsStmt = $conn->query("SELECT item FROM inventory ORDER BY item ASC");
 $inventoryItems = $itemsStmt->fetchAll(PDO::FETCH_COLUMN);
 
+// Load cosmetics items only for Olebu branch
+$cosmeticsItems = [];
+if (($_SESSION['branch'] ?? '') === 'Olebu') {
+    try {
+        $cosStmt = $conn->query("SELECT item FROM cosmetics ORDER BY item ASC");
+        $cosmeticsItems = $cosStmt->fetchAll(PDO::FETCH_COLUMN);
+    } catch (Exception $e) {
+        $cosmeticsItems = [];
+    }
+}
+
 $paymentBreakdown = [
     'Cash' => 0,
     'Mobile Money' => 0
@@ -57,11 +68,24 @@ foreach ($salesToday as $sale) {
             <div class="item-row d-flex gap-2 mb-2">
                 <select name="item[]" class="form-select item-select" required>
                     <option value="">-- Select Item --</option>
+                    <?php if ($inventoryItems): ?>
+                    <optgroup label="--- DRUGS / PHARMACEUTICALS ---">
                     <?php foreach ($inventoryItems as $invItem): ?>
-                        <option value="<?= htmlspecialchars($invItem) ?>">
+                        <option value="drug:<?= htmlspecialchars($invItem) ?>">
                             <?= htmlspecialchars($invItem) ?>
                         </option>
                     <?php endforeach; ?>
+                    </optgroup>
+                    <?php endif; ?>
+                    <?php if ($cosmeticsItems): ?>
+                    <optgroup label="--- COSMETICS ---">
+                    <?php foreach ($cosmeticsItems as $cosItem): ?>
+                        <option value="cosmetic:<?= htmlspecialchars($cosItem) ?>">
+                            <?= htmlspecialchars($cosItem) ?>
+                        </option>
+                    <?php endforeach; ?>
+                    </optgroup>
+                    <?php endif; ?>
                 </select>
 
                 <input type="number" name="qty[]" class="form-control qty" placeholder="Qty" required>
