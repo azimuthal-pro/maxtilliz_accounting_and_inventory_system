@@ -24,11 +24,11 @@ foreach ($salesToday as $sale) {
 $itemsStmt = $conn->query("SELECT item FROM drugs_tb ORDER BY item ASC");
 $drugsItems = $itemsStmt->fetchAll(PDO::FETCH_COLUMN);
 
-// Load cosmetics items only for Olebu branch
+// Load cosmetics_tb items only for Olebu branch
 $cosmeticsItems = [];
 if (($_SESSION['branch'] ?? '') === 'Olebu') {
     try {
-        $cosStmt = $conn->query("SELECT item FROM cosmetics ORDER BY item ASC");
+        $cosStmt = $conn->query("SELECT item FROM cosmetics_tb ORDER BY item ASC");
         $cosmeticsItems = $cosStmt->fetchAll(PDO::FETCH_COLUMN);
     } catch (Exception $e) {
         $cosmeticsItems = [];
