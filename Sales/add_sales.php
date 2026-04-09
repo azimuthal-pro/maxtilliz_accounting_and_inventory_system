@@ -171,7 +171,7 @@ foreach ($salesToday as $sale) {
     </table>
 
     <!-- SALES SUMMARY -->
-    <h4 class="mt-5">Sales Summary</h4>
+    <h4 class="mt-5"> <strong>Sales Summary</strong></h4>
     <div class="card shadow-sm mt-3 mb-5">
         <ul class="list-group list-group-flush">
             <?php if (($_SESSION['branch'] ?? '') === 'Olebu'): ?>
