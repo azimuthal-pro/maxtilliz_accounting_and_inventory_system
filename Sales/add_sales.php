@@ -22,26 +22,39 @@ foreach ($salesToday as $sale) {
 }
 
 $itemsStmt = $conn->query("SELECT item FROM inventory ORDER BY item ASC");
-$drugsItems = $itemsStmt->fetchAll(PDO::FETCH_COLUMN);
+$inventoryItems = $itemsStmt->fetchAll(PDO::FETCH_COLUMN);
 
 // Load cosmetics items only for Olebu branch
 $cosmeticsItems = [];
+$cosmeticItemNames = [];
 if (($_SESSION['branch'] ?? '') === 'Olebu') {
     try {
         $cosStmt = $conn->query("SELECT item FROM cosmetics ORDER BY item ASC");
         $cosmeticsItems = $cosStmt->fetchAll(PDO::FETCH_COLUMN);
+        $cosmeticItemNames = $cosmeticsItems;
     } catch (Exception $e) {
         $cosmeticsItems = [];
+        $cosmeticItemNames = [];
     }
 }
 
-$paymentBreakdown = [
-    'Cash' => 0,
-    'Mobile Money' => 0
-];
+// Sales Summary calculations
+$totalDrugs = 0;
+$totalCosmetics = 0;
+$totalCash = 0;
+$totalMobileMoney = 0;
+
 foreach ($salesToday as $sale) {
-    if (isset($paymentBreakdown[$sale['payment_method']])) {
-        $paymentBreakdown[$sale['payment_method']] += $sale['total'];
+    $amount = $sale['total'];
+    if (in_array($sale['item'], $cosmeticItemNames)) {
+        $totalCosmetics += $amount;
+    } else {
+        $totalDrugs += $amount;
+    }
+    if ($sale['payment_method'] === 'Cash') {
+        $totalCash += $amount;
+    } elseif ($sale['payment_method'] === 'Mobile Money') {
+        $totalMobileMoney += $amount;
     }
 }
 ?>
@@ -58,7 +71,7 @@ foreach ($salesToday as $sale) {
 <div class="container mt-5">
 
     <img src="../Dashboard/Maxtilliz_logo.jpg" class="d-block mx-auto mb-3" width="150">
-     <!-- <a href="../Dashboard/page.php" class="btn btn-secondary mb-3">← Back to Dashboard</a> -->
+    <a href="../Dashboard/page.php" class="btn btn-secondary mb-3">← Back to Dashboard</a>
     <h2 class="mb-4 text-center">Sales Entry</h2>
 
     <!-- SALES FORM -->
@@ -68,9 +81,9 @@ foreach ($salesToday as $sale) {
             <div class="item-row d-flex gap-2 mb-2">
                 <select name="item[]" class="form-select item-select" required>
                     <option value="">-- Select Item --</option>
-                    <?php if ($drugsItems): ?>
+                    <?php if ($inventoryItems): ?>
                     <optgroup label="--- DRUGS / PHARMACEUTICALS ---">
-                    <?php foreach ($drugsItems as $invItem): ?>
+                    <?php foreach ($inventoryItems as $invItem): ?>
                         <option value="drug:<?= htmlspecialchars($invItem) ?>">
                             <?= htmlspecialchars($invItem) ?>
                         </option>
@@ -111,7 +124,7 @@ foreach ($salesToday as $sale) {
         </button>
     </form>
 
-    <!-- TODAY'S SALES -->
+    <!-- TODAY'S SALES TABLE -->
     <h4 class="mt-5">Today's Sales (<?= $today ?>)</h4>
 
     <table class="table table-bordered table-striped mt-3">
@@ -157,16 +170,47 @@ foreach ($salesToday as $sale) {
         <?php endif; ?>
     </table>
 
-    <!-- PAYMENT BREAKDOWN -->
-    <h5 class="mt-4">Payment Breakdown</h5>
-    <ul class="list-group w-50">
-        <?php foreach ($paymentBreakdown as $method => $amount): ?>
-            <li class="list-group-item d-flex justify-content-between">
-                <?= $method ?>
-                <strong><?= number_format($amount, 2) ?> GHS</strong>
+    <!-- SALES SUMMARY -->
+    <h4 class="mt-5">Sales Summary</h4>
+    <div class="card shadow-sm mt-3 mb-5">
+        <ul class="list-group list-group-flush">
+            <?php if (($_SESSION['branch'] ?? '') === 'Olebu'): ?>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>💊 Total for Drugs</span>
+                <strong><?= number_format($totalDrugs, 2) ?> GHS</strong>
             </li>
-        <?php endforeach; ?>
-    </ul>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>💄 Total for Cosmetics</span>
+                <strong><?= number_format($totalCosmetics, 2) ?> GHS</strong>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center bg-light">
+                <span class="fw-bold">📦 Grand Total</span>
+                <strong><?= number_format($totalAmount, 2) ?> GHS</strong>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>💵 Cash Total</span>
+                <strong><?= number_format($totalCash, 2) ?> GHS</strong>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>📱 Mobile Money Total</span>
+                <strong><?= number_format($totalMobileMoney, 2) ?> GHS</strong>
+            </li>
+            <?php else: ?>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>💊 Total for Drugs</span>
+                <strong><?= number_format($totalAmount, 2) ?> GHS</strong>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>💵 Cash Total</span>
+                <strong><?= number_format($totalCash, 2) ?> GHS</strong>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>📱 Mobile Money Total</span>
+                <strong><?= number_format($totalMobileMoney, 2) ?> GHS</strong>
+            </li>
+            <?php endif; ?>
+        </ul>
+    </div>
 
 </div>
 
