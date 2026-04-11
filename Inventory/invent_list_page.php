@@ -54,7 +54,7 @@ $items = $stmt->fetchAll();
         <a href="invent_list_page.php" class="btn btn-secondary w-100">Reset</a>
     </div>
     <div class="col-md-2">
-        <a href="add_drugs.php" class="btn btn-secondary">Add Item</a>
+        <a href="add_inventory.php" class="btn btn-secondary">Add Item</a>
     </div>
 </form>
 
