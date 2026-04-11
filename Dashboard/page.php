@@ -94,8 +94,8 @@ $lowStockCount = $lowStockStmt->fetchColumn() ?? 0;
       <i class="bi bi-box-seam me-2"></i>inventory
     </button>
     <div class="collapse" id="drugsMenu">
-      <a href="../inventory/add_drugs.php"><i class="bi bi-plus-circle me-2"></i>Add inventory</a>
-      <a href="../inventory/invent_list_page.php"><i class="bi bi-list-ul me-2"></i>View inventory</a>
+      <a href="../Inventory/add_inventory.php"><i class="bi bi-plus-circle me-2"></i>Add inventory</a>
+      <a href="../Inventory/invent_list_page.php"><i class="bi bi-list-ul me-2"></i>View inventory</a>
     </div>
 
     <!-- Purchase Dropdown -->
