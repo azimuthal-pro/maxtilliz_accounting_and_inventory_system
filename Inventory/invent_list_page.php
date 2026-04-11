@@ -80,8 +80,8 @@ $items = $stmt->fetchAll();
                 <td><?= $item['quantity_in_stock'] ?></td>
                 <td><?= $item['min_stock_level'] ?></td>
                 <td>
-                    <a href="edit_drugs.php?id=<?= $item['id'] ?>" class="btn btn-sm btn-primary">Edit</a>
-                    <a href="delete_drugs.php?id=<?= $item['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                    <a href="edit_inventory.php?id=<?= $item['id'] ?>" class="btn btn-sm btn-primary">Edit</a>
+                    <a href="delete_inventory.php?id=<?= $item['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
                 </td>
             </tr>
         <?php endforeach; ?>
