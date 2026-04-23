@@ -4,13 +4,24 @@ require '../dbconfig.php';
 $saleStmnt = $conn->query("SELECT SUM(price*qty) AS total_sales FROM sales");
 $totalsales = $saleStmnt->fetchColumn() ?? 0;
 
-
 $purchaseStmt = $conn->query("SELECT SUM(total_cost) AS total_purchases FROM purchases");
 $totalPurchases = $purchaseStmt->fetchColumn() ?? 0;
 
-
 $lowStockStmt = $conn->query("SELECT COUNT(*) FROM inventory WHERE quantity_in_stock <= min_stock_level");
 $lowStockCount = $lowStockStmt->fetchColumn() ?? 0;
+
+// Low stock for cosmetics (Olebu only)
+$lowCosmeticsCount = 0;
+if (($_SESSION['branch'] ?? '') === 'Olebu') {
+    try {
+        $lowCosStmt = $conn->query("SELECT COUNT(*) FROM cosmetics WHERE quantity_in_stock <= min_stock_level");
+        $lowCosmeticsCount = $lowCosStmt->fetchColumn() ?? 0;
+    } catch (Exception $e) {
+        $lowCosmeticsCount = 0;
+    }
+}
+
+$isOlebu = ($_SESSION['branch'] ?? '') === 'Olebu';
 ?>
 
 <!DOCTYPE html>
@@ -20,11 +31,8 @@ $lowStockCount = $lowStockStmt->fetchColumn() ?? 0;
   <meta charset="UTF-8">
   <title>Dashboard</title>
   <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
-
   <link rel="stylesheet" href="../assets/css/bootstrap-icons.css">
-
   <script src="../assets/js/chart.min.js"></script>
-
 
   <style>
     body {
@@ -32,14 +40,12 @@ $lowStockCount = $lowStockStmt->fetchColumn() ?? 0;
       display: flex;
       overflow-x: hidden;
     }
-
     .sidebar {
       width: 250px;
       background-color: #262161;
       color: white;
       min-height: 100vh;
     }
-
     .sidebar a,
     .sidebar button {
       color: white;
@@ -51,18 +57,15 @@ $lowStockCount = $lowStockStmt->fetchColumn() ?? 0;
       width: 100%;
       text-align: left;
     }
-
     .sidebar a:hover,
     .sidebar button:hover {
       background-color: #24B8EE;
     }
-
     .main-content {
       flex-grow: 1;
       padding: 20px;
       background-color: #f8f9fa;
     }
-
     .collapse a {
       padding-left: 40px;
     }
@@ -89,14 +92,25 @@ $lowStockCount = $lowStockStmt->fetchColumn() ?? 0;
       <a href="../Sales/view_sales.php"><i class="bi bi-list-ul me-2"></i>View Sales</a>
     </div>
 
-    <!-- inventory Dropdown -->
+    <!-- Inventory Dropdown -->
     <button class="btn-toggle" data-bs-toggle="collapse" data-bs-target="#drugsMenu">
-      <i class="bi bi-box-seam me-2"></i>inventory
+      <i class="bi bi-box-seam me-2"></i>Inventory
     </button>
     <div class="collapse" id="drugsMenu">
-      <a href="../Inventory/add_inventory.php"><i class="bi bi-plus-circle me-2"></i>Add inventory</a>
-      <a href="../Inventory/invent_list_page.php"><i class="bi bi-list-ul me-2"></i>View inventory</a>
+      <a href="../Inventory/add_inventory.php"><i class="bi bi-plus-circle me-2"></i>Add Inventory</a>
+      <a href="../Inventory/invent_list_page.php"><i class="bi bi-list-ul me-2"></i>View Inventory</a>
     </div>
+
+    <!-- Cosmetics Dropdown (Olebu only) -->
+    <?php if ($isOlebu): ?>
+    <button class="btn-toggle" data-bs-toggle="collapse" data-bs-target="#cosmeticsMenu">
+      <i class="bi bi-stars me-2"></i>Cosmetics
+    </button>
+    <div class="collapse" id="cosmeticsMenu">
+      <a href="../Cosmetics/add_cosmetic.php"><i class="bi bi-plus-circle me-2"></i>Add Cosmetic</a>
+      <a href="../Cosmetics/cosmetics_list.php"><i class="bi bi-list-ul me-2"></i>View Cosmetics</a>
+    </div>
+    <?php endif; ?>
 
     <!-- Purchase Dropdown -->
     <button class="btn-toggle" data-bs-toggle="collapse" data-bs-target="#purchaseMenu">
@@ -116,15 +130,15 @@ $lowStockCount = $lowStockStmt->fetchColumn() ?? 0;
       <a href="../Purchase/purchase_history_report.php"><i class="bi bi-graph-down me-2"></i>Purchase Reports</a>
     </div>
 
-    <a class="dropdown-item text" href="../Access_control/logout.php"><i class="bi bi-box-arrow-right me-2"></i>Logout</a>
+    <a href="../Access_control/logout.php"><i class="bi bi-box-arrow-right me-2"></i>Logout</a>
   </div>
 
   <!-- Main Content -->
   <div class="main-content">
     <h2>Welcome, Admin</h2>
-    <p> Dashboard Overview.</p>
+    <p>Dashboard Overview.</p>
 
-    <!-- Example Summary Cards -->
+    <!-- Summary Cards -->
     <div class="row my-4">
       <div class="col-md-3">
         <div class="card text-white bg-primary mb-3">
@@ -142,18 +156,24 @@ $lowStockCount = $lowStockStmt->fetchColumn() ?? 0;
           </div>
         </div>
       </div>
-
-
-
-
       <div class="col-md-3">
         <div class="card text-white bg-danger mb-3">
           <div class="card-body">
-            <h5 class="card-title"><i class="bi bi-exclamation-triangle me-2"></i>Low Stock Alerts</h5>
+            <h5 class="card-title"><i class="bi bi-exclamation-triangle me-2"></i>Low Stock (Drugs)</h5>
             <p class="card-text"><?= $lowStockCount ?></p>
           </div>
         </div>
       </div>
+      <?php if ($isOlebu): ?>
+      <div class="col-md-3">
+        <div class="card text-white mb-3" style="background-color: #e83e8c;">
+          <div class="card-body">
+            <h5 class="card-title"><i class="bi bi-stars me-2"></i>Low Stock (Cosmetics)</h5>
+            <p class="card-text"><?= $lowCosmeticsCount ?></p>
+          </div>
+        </div>
+      </div>
+      <?php endif; ?>
     </div>
 
     <div class="row my-4">
@@ -165,7 +185,6 @@ $lowStockCount = $lowStockStmt->fetchColumn() ?? 0;
           </div>
         </div>
       </div>
-
       <div class="col-md-6">
         <div class="card mb-4">
           <div class="card-header bg-success text-white">Purchase Trends</div>
@@ -175,20 +194,14 @@ $lowStockCount = $lowStockStmt->fetchColumn() ?? 0;
         </div>
       </div>
     </div>
-
-
   </div>
 
-  <!-- Bootstrap JS -->
   <script src="../assets/js/bootstrap.bundle.min.js"></script>
-
-
   <script>
     fetch('get_chart_data.php')
       .then(res => res.json())
       .then(data => {
-        // Draw sales chart
-        new Chart(document.getElementById('salesChart'),{
+        new Chart(document.getElementById('salesChart'), {
           type: 'line',
           data: {
             labels: data.sales.labels,
@@ -199,8 +212,6 @@ $lowStockCount = $lowStockStmt->fetchColumn() ?? 0;
             }]
           }
         });
-
-        // Draw purchases chart
         new Chart(document.getElementById('purchaseChart'), {
           type: 'bar',
           data: {
@@ -216,5 +227,4 @@ $lowStockCount = $lowStockStmt->fetchColumn() ?? 0;
   </script>
 
 </body>
-
 </html>
