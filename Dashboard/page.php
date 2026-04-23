@@ -92,9 +92,9 @@ $isOlebu = ($_SESSION['branch'] ?? '') === 'Olebu';
       <a href="../Sales/view_sales.php"><i class="bi bi-list-ul me-2"></i>View Sales</a>
     </div>
 
-    <!-- Inventory Dropdown -->
+    <!-- Drugs Inventory Dropdown -->
     <button class="btn-toggle" data-bs-toggle="collapse" data-bs-target="#drugsMenu">
-      <i class="bi bi-box-seam me-2"></i> Drugs Inventory
+      <i class="bi bi-capsule-pill  me-2"></i> Drugs Inventory
     </button>
     <div class="collapse" id="drugsMenu">
       <a href="../Inventory/add_inventory.php"><i class="bi bi-plus-circle me-2"></i>Add Inventory</a>
