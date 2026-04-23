@@ -168,7 +168,7 @@ $isOlebu = ($_SESSION['branch'] ?? '') === 'Olebu';
       <div class="col-md-3">
         <div class="card text-white mb-3" style="background-color: #e83e8c;">
           <div class="card-body">
-            <h5 class="card-title"><i class="bi bi-stars me-2"></i>Low Stock (Cosmetics)</h5>
+            <h5 class="card-title"><i class="bi bi-magic me-2"></i>Low Stock (Cosmetics)</h5>
             <p class="card-text"><?= $lowCosmeticsCount ?></p>
           </div>
         </div>
