@@ -94,7 +94,7 @@ $isOlebu = ($_SESSION['branch'] ?? '') === 'Olebu';
 
     <!-- Inventory Dropdown -->
     <button class="btn-toggle" data-bs-toggle="collapse" data-bs-target="#drugsMenu">
-      <i class="bi bi-box-seam me-2"></i>Inventory
+      <i class="bi bi-box-seam me-2"></i> Drugs Inventory
     </button>
     <div class="collapse" id="drugsMenu">
       <a href="../Inventory/add_inventory.php"><i class="bi bi-plus-circle me-2"></i>Add Inventory</a>
@@ -104,7 +104,7 @@ $isOlebu = ($_SESSION['branch'] ?? '') === 'Olebu';
     <!-- Cosmetics Dropdown (Olebu only) -->
     <?php if ($isOlebu): ?>
     <button class="btn-toggle" data-bs-toggle="collapse" data-bs-target="#cosmeticsMenu">
-      <i class="bi bi-stars me-2"></i>Cosmetics
+      <i class="bi bi-magic me-2"></i>Cosmetics Inventory
     </button>
     <div class="collapse" id="cosmeticsMenu">
       <a href="../Cosmetics/add_cosmetic.php"><i class="bi bi-plus-circle me-2"></i>Add Cosmetic</a>
