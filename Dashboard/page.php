@@ -214,7 +214,7 @@ $isOlebu = ($_SESSION['branch'] ?? '') === 'Olebu';
   <div class="row g-3 my-2">
     <div class="col-12 col-md-6">
       <div class="card">
-        <div class="card-header bg-primary text-white">Sales Overview</div>
+        <div class="card-header" style="background-color:#24B8EE;" class="text-white">Sales Overview</div>
         <div class="card-body">
           <canvas id="salesChart"></canvas>
         </div>
@@ -222,7 +222,7 @@ $isOlebu = ($_SESSION['branch'] ?? '') === 'Olebu';
     </div>
     <div class="col-12 col-md-6">
       <div class="card">
-        <div class="card-header bg-success text-white">Purchase Trends</div>
+        <div class="card-header"  class="text-white" style="background-color:#262161;">Purchase Trends</div>
         <div class="card-body">
           <canvas id="purchaseChart"></canvas>
         </div>
