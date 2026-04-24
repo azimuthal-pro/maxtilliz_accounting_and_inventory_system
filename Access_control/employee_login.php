@@ -46,6 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employee Login</title>
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -64,8 +65,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <label class="form-label">Branch / Location</label>
                 <select name="branch" class="form-select" required>
                     <option value="">-- Select branch --</option>
-                    <option value="Agbajeena">Agbajeena Branch</option>
-                    <option value="Olebu">Olebu Branch</option>
+                    <option value="agbajeena">Agbajeena Branch</option>
+                    <option value="olebu">Olebu Branch</option>
                 </select>
             </div>
 
