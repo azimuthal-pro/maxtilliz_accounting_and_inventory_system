@@ -175,7 +175,7 @@ $isOlebu = ($_SESSION['branch'] ?? '') === 'Olebu';
   <!-- Summary Cards -->
   <div class="row g-3 my-2">
     <div class="col-6 col-md-3">
-      <div class="card text-white bg-primary h-100">
+      <div class="card text-white h-100" style="background-color:#24B8EE;">
         <div class="card-body">
           <h6 class="card-title"><i class="bi bi-cash-coin me-1"></i>Total Sales</h6>
           <p class="card-text fw-bold"><?= number_format($totalsales, 2) ?></p>
@@ -183,7 +183,7 @@ $isOlebu = ($_SESSION['branch'] ?? '') === 'Olebu';
       </div>
     </div>
     <div class="col-6 col-md-3">
-      <div class="card text-white bg-success h-100">
+      <div class="card text-white h-100" style="background-color:#262161;">
         <div class="card-body">
           <h6 class="card-title"><i class="bi bi-bag-check me-1"></i>Total Purchases</h6>
           <p class="card-text fw-bold"><?= number_format($totalPurchases, 2) ?></p>
