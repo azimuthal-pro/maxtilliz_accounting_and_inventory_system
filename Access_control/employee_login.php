@@ -49,44 +49,85 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employee Login</title>
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #262161 0%, #24B8EE 100%);
+            min-height: 100vh;
+        }
+        .login-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            max-width: 440px;
+            width: 100%;
+        }
+        .logo {
+            height: 100px;
+            width: 100px;
+            object-fit: contain;
+        }
+        .btn-login {
+            background-color: #24B8EE;
+            border: none;
+            color: white;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 10px;
+        }
+        .btn-login:hover {
+            background-color: #1a9fd4;
+            color: white;
+        }
+        .back-link {
+            color: #262161;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .back-link:hover { color: #24B8EE; }
+        @media (max-width: 480px) {
+            .login-card { padding: 30px 20px; margin: 20px; }
+            .logo { height: 75px; width: 75px; }
+        }
+    </style>
 </head>
-<body class="bg-light">
-<div class="container d-flex justify-content-center align-items-center vh-100">
-    <div class="card shadow p-4" style="width: 420px;">
-        <img src="../Dashboard/Maxtilliz_logo.jpg" alt="logo" height="100" width="100" class="mb-3 mx-auto d-block">
-        <h4 class="text-center mb-4">Employee Login</h4>
-
-        <?php if ($error): ?>
-            <div class="alert alert-danger"><?= $error ?></div>
-        <?php endif; ?>
-
-        <form method="post">
-            <div class="mb-3">
-                <label class="form-label">Branch / Location</label>
-                <select name="branch" class="form-select" required>
-                    <option value="">-- Select branch --</option>
-                    <option value="Agbajeena">Agbajeena Branch</option>
-                    <option value="Olebu">Olebu Branch</option>
-                </select>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Username</label>
-                <input type="text" name="username" class="form-control" required>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Password</label>
-                <input type="password" name="password" class="form-control" required>
-            </div>
-
-            <button type="submit" class="btn btn-success w-100">Login</button>
-        </form>
-
-        <div class="text-center mt-3">
-            <a href="../index.php">Back</a>
+<body class="d-flex justify-content-center align-items-center min-vh-100">
+ 
+<div class="login-card">
+    <img src="../Dashboard/Maxtilliz_logo.jpg" alt="logo" class="logo d-block mx-auto mb-3">
+    <h4 class="text-center fw-bold mb-1" style="color:#262161;">Employee Login</h4>
+    <p class="text-center text-muted mb-4" style="font-size:14px;">Select your branch and sign in</p>
+ 
+    <?php if ($error): ?>
+        <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
+    <?php endif; ?>
+ 
+    <form method="post">
+        <div class="mb-3">
+            <label class="form-label fw-semibold">Branch / Location</label>
+            <select name="branch" class="form-select" required>
+                <option value="">-- Select branch --</option>
+                <option value="Agbajeena">Agbajeena Branch</option>
+                <option value="Olebu">Olebu Branch</option>
+            </select>
         </div>
+        <div class="mb-3">
+            <label class="form-label fw-semibold">Username</label>
+            <input type="text" name="username" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label fw-semibold">Password</label>
+            <input type="password" name="password" class="form-control" required>
+        </div>
+        <div class="d-grid mt-4">
+            <button type="submit" class="btn btn-login">Login</button>
+        </div>
+    </form>
+ 
+    <div class="text-center mt-3">
+        <a href="../index.php" class="back-link">← Back to Home</a>
     </div>
 </div>
+ 
 </body>
 </html>
