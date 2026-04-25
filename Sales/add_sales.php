@@ -63,6 +63,7 @@ foreach ($salesToday as $sale) {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sales Entry</title>
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -71,6 +72,7 @@ foreach ($salesToday as $sale) {
 <div class="container mt-5">
 
     <img src="../Dashboard/Maxtilliz_logo.jpg" class="d-block mx-auto mb-3" width="150">
+    <a href="../Dashboard/page.php" class="btn btn-secondary mb-3">← Back to Dashboard</a>
     <h2 class="mb-4 text-center">Sales Entry</h2>
 
     <!-- SALES FORM -->
@@ -170,7 +172,7 @@ foreach ($salesToday as $sale) {
     </table>
 
     <!-- SALES SUMMARY -->
-    <h4 class="mt-5"> <strong>Sales Summary</strong></h4>
+    <h4 class="mt-5">Sales Summary</h4>
     <div class="card shadow-sm mt-3 mb-5">
         <ul class="list-group list-group-flush">
             <?php if (($_SESSION['branch'] ?? '') === 'Olebu'): ?>
