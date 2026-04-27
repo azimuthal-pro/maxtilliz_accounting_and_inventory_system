@@ -105,7 +105,7 @@ foreach ($purchases as $p) {
                     <button type="submit" class="btn w-100" style="background-color:#262161;color:white;">
                         <i class="bi bi-funnel me-1"></i>Filter
                     </button>
-                    <a href="purchase_history.php" class="btn btn-outline-secondary w-100">Reset</a>
+                    <a href="purchase_history.php" class="btn btn-secondary no-print  w-100">Reset</a>
                 </div>
             </form>
         </div>
