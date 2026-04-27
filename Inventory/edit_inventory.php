@@ -65,10 +65,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <label class="form-label">Item Code</label>
             <input type="text" name="item_code" class="form-control" value="<?= htmlspecialchars($item['item_code']) ?>" required>
         </div>
-        <!-- <div class="mb-3">
-            <label class="form-label">Category</label>
-            <input type="text" name="category" class="form-control" value="<?= htmlspecialchars($item['category']) ?>">
-        </div> -->
         <div class="mb-3">
             <label class="form-label">Unit Price (GHS)</label>
             <input type="number" name="unit_price" class="form-control" step="0.01" value="<?= $item['unit_price'] ?>" required>
@@ -82,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="number" name="min_stock_level" class="form-control" value="<?= $item['min_stock_level'] ?>" required>
         </div>
         <button type="submit" class="btn btn-success">Update Item</button>
-        <a href="invent_list_page.php" class="btn btn-secondary ms-2">Cancel</a>
+        <a href="invent_list_page.php" class="btn btn-secondary ms-2">Back To Inventory List</a>
     </form>
 </div>
 </body>
