@@ -31,7 +31,7 @@ $isOlebu = ($_SESSION['branch'] ?? '') === 'Olebu';
   <script src="../assets/js/chart.min.js"></script>
   <style>
     body { background-color: #f8f9fa; }
- 
+
     /* Sidebar */
     .sidebar {
       width: 250px;
@@ -58,7 +58,7 @@ $isOlebu = ($_SESSION['branch'] ?? '') === 'Olebu';
     }
     .sidebar a:hover, .sidebar button:hover { background-color: #24B8EE; }
     .collapse a { padding-left: 40px; }
- 
+
     /* Main content offset */
     .main-content {
       margin-left: 250px;
@@ -66,7 +66,7 @@ $isOlebu = ($_SESSION['branch'] ?? '') === 'Olebu';
       transition: margin-left 0.3s ease;
     }
     .main-content.full { margin-left: 0; }
- 
+
     /* Top navbar for mobile */
     .mobile-navbar {
       display: none;
@@ -78,7 +78,7 @@ $isOlebu = ($_SESSION['branch'] ?? '') === 'Olebu';
       z-index: 999;
     }
     .mobile-navbar .brand { font-size: 18px; font-weight: bold; color: white; }
- 
+
     /* Overlay */
     .sidebar-overlay {
       display: none;
@@ -88,7 +88,7 @@ $isOlebu = ($_SESSION['branch'] ?? '') === 'Olebu';
       z-index: 999;
     }
     .sidebar-overlay.show { display: block; }
- 
+
     @media (max-width: 768px) {
       .sidebar { transform: translateX(-250px); }
       .sidebar.show { transform: translateX(0); }
@@ -98,7 +98,7 @@ $isOlebu = ($_SESSION['branch'] ?? '') === 'Olebu';
   </style>
 </head>
 <body>
- 
+
 <!-- Mobile Top Navbar -->
 <div class="mobile-navbar">
   <span class="brand">
@@ -109,19 +109,19 @@ $isOlebu = ($_SESSION['branch'] ?? '') === 'Olebu';
     <i class="bi bi-list"></i>
   </button>
 </div>
- 
+
 <!-- Sidebar Overlay -->
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
- 
+
 <!-- Sidebar -->
 <div class="sidebar" id="sidebar">
   <h4 class="text-center py-3 border-bottom d-none d-md-block">
     <img src="Maxtilliz_logo.jpg" height="50" width="50">
     Maxtilliz Chem
   </h4>
- 
+
   <a href="#"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a>
- 
+
   <button data-bs-toggle="collapse" data-bs-target="#salesMenu">
     <i class="bi bi-cart-check me-2"></i>Sales
   </button>
@@ -129,7 +129,7 @@ $isOlebu = ($_SESSION['branch'] ?? '') === 'Olebu';
     <a href="../Sales/add_sales.php"><i class="bi bi-plus-circle me-2"></i>Add Sale</a>
     <a href="../Sales/view_sales.php"><i class="bi bi-list-ul me-2"></i>View Sales</a>
   </div>
- 
+
   <button data-bs-toggle="collapse" data-bs-target="#drugsMenu">
     <i class="bi bi-box-seam me-2"></i>Inventory
   </button>
@@ -137,7 +137,7 @@ $isOlebu = ($_SESSION['branch'] ?? '') === 'Olebu';
     <a href="../Inventory/add_inventory.php"><i class="bi bi-plus-circle me-2"></i>Add Inventory</a>
     <a href="../Inventory/invent_list_page.php"><i class="bi bi-list-ul me-2"></i>View Inventory</a>
   </div>
- 
+
   <?php if ($isOlebu): ?>
   <button data-bs-toggle="collapse" data-bs-target="#cosmeticsMenu">
     <i class="bi bi-stars me-2"></i>Cosmetics
@@ -147,7 +147,7 @@ $isOlebu = ($_SESSION['branch'] ?? '') === 'Olebu';
     <a href="../Cosmetics/cosmetics_list.php"><i class="bi bi-list-ul me-2"></i>View Cosmetics</a>
   </div>
   <?php endif; ?>
- 
+
   <button data-bs-toggle="collapse" data-bs-target="#purchaseMenu">
     <i class="bi bi-truck me-2"></i>Purchase
   </button>
@@ -155,7 +155,7 @@ $isOlebu = ($_SESSION['branch'] ?? '') === 'Olebu';
     <a href="../Purchase/purchase_form.php"><i class="bi bi-plus-circle me-2"></i>Add Purchase</a>
     <a href="../Purchase/purchase_history.php"><i class="bi bi-clock-history me-2"></i>Purchase History</a>
   </div>
- 
+
   <button data-bs-toggle="collapse" data-bs-target="#reportsMenu">
     <i class="bi bi-bar-chart-line me-2"></i>Reports
   </button>
@@ -163,15 +163,16 @@ $isOlebu = ($_SESSION['branch'] ?? '') === 'Olebu';
     <a href="../Sales/sales_report_export.php"><i class="bi bi-graph-up-arrow me-2"></i>Sales Reports</a>
     <a href="../Purchase/purchase_history_report.php"><i class="bi bi-graph-down me-2"></i>Purchase Reports</a>
   </div>
- 
+
+  <a href="../Access_control/register_user.php"><i class="bi bi-person-plus me-2"></i>Register User</a>
   <a href="../Access_control/logout.php"><i class="bi bi-box-arrow-right me-2"></i>Logout</a>
 </div>
- 
+
 <!-- Main Content -->
 <div class="main-content">
   <h2 class="mb-1">Welcome, Admin</h2>
   <p class="text-muted">Dashboard Overview</p>
- 
+
   <!-- Summary Cards -->
   <div class="row g-3 my-2">
     <div class="col-6 col-md-3">
@@ -209,12 +210,12 @@ $isOlebu = ($_SESSION['branch'] ?? '') === 'Olebu';
     </div>
     <?php endif; ?>
   </div>
- 
+
   <!-- Charts -->
   <div class="row g-3 my-2">
     <div class="col-12 col-md-6">
       <div class="card">
-        <div class="card-header" style="background-color:#24B8EE;" >Sales Overview</div>
+        <div class="card-header bg-primary text-white">Sales Overview</div>
         <div class="card-body">
           <canvas id="salesChart"></canvas>
         </div>
@@ -222,7 +223,7 @@ $isOlebu = ($_SESSION['branch'] ?? '') === 'Olebu';
     </div>
     <div class="col-12 col-md-6">
       <div class="card">
-        <div class="card-header"  style="background-color:#262161;">Purchase Trends</div>
+        <div class="card-header bg-success text-white">Purchase Trends</div>
         <div class="card-body">
           <canvas id="purchaseChart"></canvas>
         </div>
@@ -230,14 +231,14 @@ $isOlebu = ($_SESSION['branch'] ?? '') === 'Olebu';
     </div>
   </div>
 </div>
- 
+
 <script src="../assets/js/bootstrap.bundle.min.js"></script>
 <script>
   // Sidebar toggle for mobile
   const sidebar = document.getElementById('sidebar');
   const overlay = document.getElementById('sidebarOverlay');
   const toggleBtn = document.getElementById('sidebarToggle');
- 
+
   toggleBtn?.addEventListener('click', () => {
     sidebar.classList.toggle('show');
     overlay.classList.toggle('show');
@@ -246,7 +247,7 @@ $isOlebu = ($_SESSION['branch'] ?? '') === 'Olebu';
     sidebar.classList.remove('show');
     overlay.classList.remove('show');
   });
- 
+
   // Charts
   fetch('get_chart_data.php')
     .then(res => res.json())
@@ -271,4 +272,3 @@ $isOlebu = ($_SESSION['branch'] ?? '') === 'Olebu';
 </script>
 </body>
 </html>
- 
