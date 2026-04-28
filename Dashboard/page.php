@@ -133,10 +133,11 @@ $isOlebu = ($_SESSION['branch'] ?? '') === 'Olebu';
   <button data-bs-toggle="collapse" data-bs-target="#drugsMenu">
     <i class="bi bi-box-seam me-2"></i>Inventory
   </button>
-  <div class="collapse" id="drugsMenu">
-    <a href="../Inventory/add_inventory.php"><i class="bi bi-plus-circle me-2"></i>Add Inventory</a>
-    <a href="../Inventory/invent_list_page.php"><i class="bi bi-list-ul me-2"></i>View Inventory</a>
-  </div>
+   <div class="collapse" id="drugsMenu">
+     <a href="../Inventory/add_inventory.php"><i class="bi bi-plus-circle me-2"></i>Add Inventory</a>
+     <a href="../Inventory/invent_list_page.php"><i class="bi bi-list-ul me-2"></i>View Inventory</a>
+     <a href="../Inventory/low_stock_alert.php"><i class="bi bi-exclamation-triangle me-2"></i>Out of Stocks</a>
+   </div>
  
   <?php if ($isOlebu): ?>
   <button data-bs-toggle="collapse" data-bs-target="#cosmeticsMenu">
@@ -159,10 +160,11 @@ $isOlebu = ($_SESSION['branch'] ?? '') === 'Olebu';
   <button data-bs-toggle="collapse" data-bs-target="#reportsMenu">
     <i class="bi bi-bar-chart-line me-2"></i>Reports
   </button>
-  <div class="collapse" id="reportsMenu">
-    <a href="../Sales/sales_report_export.php"><i class="bi bi-graph-up-arrow me-2"></i>Sales Reports</a>
-    <a href="../Purchase/purchase_history_report.php"><i class="bi bi-graph-down me-2"></i>Purchase Reports</a>
-  </div>
+   <div class="collapse" id="reportsMenu">
+     <a href="../Sales/sales_report_export.php"><i class="bi bi-graph-up-arrow me-2"></i>Sales Reports</a>
+     <a href="../Purchase/purchase_history_report.php"><i class="bi bi-graph-down me-2"></i>Purchase Reports</a>
+     <a href="../Inventory/low_stock_report_export.php"><i class="bi bi-file-earmark-excel me-2"></i>Low Stock Report</a>
+   </div>
  
   <a href="../Access_control/register_user.php"><i class="bi bi-person-plus me-2"></i>Register User</a>
   <a href="../Access_control/logout.php"><i class="bi bi-box-arrow-right me-2"></i>Logout</a>
@@ -271,5 +273,4 @@ $isOlebu = ($_SESSION['branch'] ?? '') === 'Olebu';
     });
 </script>
 </body>
-</html>
- 
+         
