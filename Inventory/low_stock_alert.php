@@ -21,7 +21,6 @@ $lowStockItems = $stmt->fetchAll();
             <thead class="table-warning">
                 <tr>
                     <th>Item Name</th>
-                    <th>Item Code</th>
                     <th>Quantity in Stock</th>
                     <th>Minimum Stock Level</th>
                 </tr>
@@ -30,7 +29,6 @@ $lowStockItems = $stmt->fetchAll();
                 <?php foreach ($lowStockItems as $item): ?>
                     <tr>
                         <td><?= htmlspecialchars($item['item']) ?></td>
-                        <td><?= htmlspecialchars($item['item_code']) ?></td>
                         <td><?= $item['quantity_in_stock'] ?></td>
                         <td><?= $item['min_stock_level'] ?></td>
                     </tr>
