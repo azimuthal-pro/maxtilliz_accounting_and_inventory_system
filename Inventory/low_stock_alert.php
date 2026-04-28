@@ -29,7 +29,7 @@ $lowStockItems = $stmt->fetchAll();
             <tbody>
                 <?php foreach ($lowStockItems as $item): ?>
                     <tr>
-                        <td><?= htmlspecialchars($item['item_name']) ?></td>
+                        <td><?= htmlspecialchars($item['item']) ?></td>
                         <td><?= htmlspecialchars($item['item_code']) ?></td>
                         <td><?= $item['quantity_in_stock'] ?></td>
                         <td><?= $item['min_stock_level'] ?></td>
