@@ -1,43 +1,37 @@
 <?php
 require '../dbconfig.php';
+$pageTitle = 'Out of Stocks';
+require '../includes/header.php';
+require '../includes/sidebar.php';
 
-$stmt = $conn->query("SELECT * FROM inventory WHERE quantity_in_stock <= min_stock_level");
+$stmt = $conn->query("SELECT * FROM inventory WHERE quantity_in_stock <= min_stock_level ORDER BY quantity_in_stock ASC");
 $lowStockItems = $stmt->fetchAll();
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Low Stock Alerts</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="bg-light">
-<div class="container mt-5">
-    <h2 class="mb-4 text-danger">Low Stock Alerts</h2>
+<a href="../Dashboard/page.php" class="btn btn-secondary mb-3">← Back to Dashboard</a>
+<h2 class="mb-4 text-danger"><i class="bi bi-exclamation-triangle me-2"></i>Out of Stock / Low Stock Items</h2>
 
-    <?php if (count($lowStockItems) > 0): ?>
+<?php if (count($lowStockItems) > 0): ?>
+    <div class="table-responsive">
         <table class="table table-bordered table-striped">
             <thead class="table-warning">
-                <tr>
-                    <th>Item Name</th>
-                    <th>Quantity in Stock</th>
-                    <th>Minimum Stock Level</th>
-                </tr>
+                <tr><th>Item Name</th><th>Item Code</th><th>In Stock</th><th>Min Level</th><th>Action</th></tr>
             </thead>
             <tbody>
                 <?php foreach ($lowStockItems as $item): ?>
                     <tr>
                         <td><?= htmlspecialchars($item['item']) ?></td>
-                        <td><?= $item['quantity_in_stock'] ?></td>
+                        <td><?= htmlspecialchars($item['item_code']) ?></td>
+                        <td class="text-danger fw-bold"><?= $item['quantity_in_stock'] ?></td>
                         <td><?= $item['min_stock_level'] ?></td>
+                        <td><a href="edit_inventory.php?id=<?= $item['id'] ?>" class="btn btn-sm btn-primary">Restock</a></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
-    <?php else: ?>
-        <div class="alert alert-success">All items are sufficiently stocked.</div>
-    <?php endif; ?>
-</div>
-</body>
-</html>
+    </div>
+<?php else: ?>
+    <div class="alert alert-success"><i class="bi bi-check-circle me-2"></i>All items are sufficiently stocked.</div>
+<?php endif; ?>
+
+<?php require '../includes/footer.php'; ?>
