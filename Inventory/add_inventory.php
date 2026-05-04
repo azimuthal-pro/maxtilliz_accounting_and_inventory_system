@@ -61,7 +61,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body class="bg-light">
 <div class="container mt-3" style="max-width:600px;">
-    <a href="../Dashboard/page.php" class="btn btn-secondary mb-3">← Back to Dashboard</a>
     <h2>Add Item To Inventory</h2>
 
     <?php if ($message): ?>
