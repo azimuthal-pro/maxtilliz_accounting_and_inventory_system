@@ -38,7 +38,7 @@ require '../includes/header.php';
 require '../includes/sidebar.php';
 ?>
 
-<a href="../Dashboard/page.php" class="btn btn-secondary mb-3">← Back to Dashboard</a>
+<!-- <a href="../Dashboard/page.php" class="btn btn-secondary mb-3">← Back to Dashboard</a> -->
 <h2 class="mb-4">Sales Entry</h2>
 
 <form method="post" action="add_sale_query.php" class="card p-4 shadow-sm bg-white mb-4">
