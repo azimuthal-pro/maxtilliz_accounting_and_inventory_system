@@ -34,8 +34,8 @@ foreach ($salesToday as $sale) {
     elseif ($sale['payment_method'] === 'Mobile Money') $totalMobileMoney += $amount;
 }
 
-require '../includes/header.php';
-require '../includes/sidebar.php';
+//require '../includes/header.php';
+//require '../includes/sidebar.php';
 ?>
 
 <!-- <a href="../Dashboard/page.php" class="btn btn-secondary mb-3">← Back to Dashboard</a> -->
