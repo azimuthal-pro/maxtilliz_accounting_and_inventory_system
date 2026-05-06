@@ -34,7 +34,7 @@ foreach ($salesToday as $sale) {
     elseif ($sale['payment_method'] === 'Mobile Money') $totalMobileMoney += $amount;
 }
 
-//require '../includes/header.php';
+require '../includes/header.php';
 //require '../includes/sidebar.php';
 ?>
 
